@@ -7,18 +7,12 @@ import Feedback from '../Feedback/Feedback';
 import Notification from '../Notification/Notification';
 
 function App() {
-  const [values, setValues] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  });
-
-  useEffect(() => {
+  const [values, setValues] = useState(() => {
     const savedValues = localStorage.getItem('feedbackValues');
-    if (savedValues) {
-      setValues(JSON.parse(savedValues));
-    }
-  }, []);
+    return savedValues
+      ? JSON.parse(savedValues)
+      : { good: 0, neutral: 0, bad: 0 };
+  });
 
   useEffect(() => {
     localStorage.setItem('feedbackValues', JSON.stringify(values));
